@@ -17,7 +17,7 @@ jobs:
 
       - name: Add Upstream Repository
         run: |
-          git remote add https://github.com/openid/AppAuth-iOS
+          git remote add upstream https://github.com/openid/AppAuth-iOS
           git fetch upstream master
 
       - name: Create Branch for Sync
