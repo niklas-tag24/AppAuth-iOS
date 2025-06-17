@@ -38,7 +38,7 @@ jobs:
           commit-message: "Syncing with upstream repository"
           title: "Sync changes from upstream/main"
           body: "This PR contains the latest updates from the upstream repository."
-          base: main
+          base: visionOS
           branch: sync-upstream-main
           labels: "auto-sync"
           assignees: "niklas-tag24"
