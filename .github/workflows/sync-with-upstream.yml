@@ -24,21 +24,21 @@ jobs:
         run: |
           git config --local user.email "webmaster@tag24.de"
           git config --local user.name "tag24-bot"
-          git checkout -b sync-upstream-main
-          git merge upstream/main --allow-unrelated-histories --no-edit || echo "No changes to merge"
+          git checkout -b sync-upstream-master
+          git merge upstream/master --allow-unrelated-histories --no-edit || echo "No changes to merge"
 
       - name: Push Changes
         run: |
-          git push origin sync-upstream-main --force
+          git push origin sync-upstream-master --force
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Syncing with upstream repository"
-          title: "Sync changes from upstream/main"
+          title: "Sync changes from upstream/master"
           body: "This PR contains the latest updates from the upstream repository."
           base: visionOS
-          branch: sync-upstream-main
+          branch: sync-upstream-master
           labels: "auto-sync"
           assignees: "niklas-tag24"
