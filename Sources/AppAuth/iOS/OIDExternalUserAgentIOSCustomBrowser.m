@@ -145,11 +145,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSString *testURLString = [NSString stringWithFormat:@"%@://example.com", _canOpenURLScheme];
     NSURL *testURL = [NSURL URLWithString:testURLString];
     if (![[UIApplication sharedApplication] canOpenURL:testURL]) {
-#if TARGET_OS_VISION
-      [[UIApplication sharedApplication] openURL:_appStoreURL options:@{} completionHandler:NULL];
-#else
-      [[UIApplication sharedApplication] openURL:_appStoreURL];
-#endif
+      [[UIApplication sharedApplication] openURL:_appStoreURL options:@{} completionHandler:nil];
       return NO;
     }
   }
@@ -159,13 +155,15 @@ NS_ASSUME_NONNULL_BEGIN
   requestURL = _URLTransformation(requestURL);
 #if TARGET_OS_VISION
   if ([[UIApplication sharedApplication] canOpenURL:requestURL]) {
-    [[UIApplication sharedApplication] openURL:requestURL options:@{} completionHandler:NULL];
+    [[UIApplication sharedApplication] openURL:requestURL options:@{} completionHandler:nil];
     return YES;
   } else {
     return NO;
   }
 #else
-    return [[UIApplication sharedApplication] openURL:requestURL];
+  BOOL willOpen = [[UIApplication sharedApplication] canOpenURL:requestURL];
+  [[UIApplication sharedApplication] openURL:requestURL options:@{} completionHandler:nil];
+  return willOpen;
 #endif
 }
 
