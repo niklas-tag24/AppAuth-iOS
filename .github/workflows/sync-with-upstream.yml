@@ -24,6 +24,8 @@ jobs:
         run: |
           git config --local user.email "webmaster@tag24.de"
           git config --local user.name "tag24-bot"
+          git pull
+          git checkout visionOS
           git checkout -b sync-upstream-master
           git merge upstream/master --allow-unrelated-histories --no-edit || echo "No changes to merge"
 
